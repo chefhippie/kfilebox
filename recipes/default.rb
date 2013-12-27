@@ -17,14 +17,17 @@
 # limitations under the License.
 #
 
-include_recipe "zypper"
+case node["platform_family"]
+when "suse"
+  include_recipe "zypper"
 
-zypper_repository "kde-extra" do
-  uri "http://download.opensuse.org/repositories/KDE:/Extra/openSUSE_12.3/"
-  key "http://download.opensuse.org/repositories/KDE:/Extra/openSUSE_12.3/repodata/repomd.xml.key"
-  title "Additional KDE packages"
+  zypper_repository node["kfilebox"]["zypper"]["alias"] do
+    uri node["kfilebox"]["zypper"]["repo"]
+    key node["kfilebox"]["zypper"]["key"]
+    title node["kfilebox"]["zypper"]["title"]
 
-  action :add
+    action :add
+  end
 end
 
 node["kfilebox"]["packages"].each do |name|

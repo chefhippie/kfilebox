@@ -20,3 +20,8 @@
 default["kfilebox"]["packages"] = %w(
   kfilebox
 )
+
+default["kfilebox"]["zypper"]["alias"] = "kde-extra"
+default["kfilebox"]["zypper"]["title"] = "Additional KDE packages"
+default["kfilebox"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/KDE:/Extra/openSUSE_#{node["platform_version"] == "12.1" ? "12.3" : node["platform_version"]}/"
+default["kfilebox"]["zypper"]["key"] = "#{node["centerim"]["zypper"]["repo"]}repodata/repomd.xml.key"
