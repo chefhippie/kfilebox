@@ -21,6 +21,7 @@ default["kfilebox"]["packages"] = %w(
   kfilebox
 )
 
+default["kfilebox"]["zypper"]["enabled"] = true
 default["kfilebox"]["zypper"]["alias"] = "kde-extra"
 default["kfilebox"]["zypper"]["title"] = "Additional KDE packages"
 default["kfilebox"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/KDE:/Extra/openSUSE_#{node["platform_version"]}/"
