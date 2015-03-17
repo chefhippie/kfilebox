@@ -26,7 +26,7 @@ when "suse"
     key node["kfilebox"]["zypper"]["key"]
     title node["kfilebox"]["zypper"]["title"]
 
-    action :add
+    action [:add, :refresh]
 
     only_if do
       node["kfilebox"]["zypper"]["enabled"]
