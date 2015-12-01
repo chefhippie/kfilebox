@@ -21,8 +21,22 @@ default["kfilebox"]["packages"] = %w(
   kfilebox
 )
 
-default["kfilebox"]["zypper"]["enabled"] = true
-default["kfilebox"]["zypper"]["alias"] = "kde-extra"
-default["kfilebox"]["zypper"]["title"] = "Additional KDE packages"
-default["kfilebox"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/KDE:/Extra/openSUSE_#{node["platform_version"]}/"
-default["kfilebox"]["zypper"]["key"] = "#{node["kfilebox"]["zypper"]["repo"]}repodata/repomd.xml.key"
+case node["platform_family"]
+when "suse"
+  repo = case node["platform_version"]
+  when /\A13\.\d+\z/
+    "openSUSE_#{node["platform_version"]}"
+  when /\A42\.\d+\z/
+    "openSUSE_Leap_#{node["platform_version"]}"
+  when /\A\d{8}\z/
+    "openSUSE_Tumbleweed"
+  else
+    raise "Unsupported SUSE version"
+  end
+
+  default["kfilebox"]["zypper"]["enabled"] = true
+  default["kfilebox"]["zypper"]["alias"] = "kde-extra"
+  default["kfilebox"]["zypper"]["title"] = "Additional KDE packages"
+  default["kfilebox"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/KDE:/Extra/#{repo}/"
+  default["kfilebox"]["zypper"]["key"] = "#{node["kfilebox"]["zypper"]["repo"]}repodata/repomd.xml.key"
+end
